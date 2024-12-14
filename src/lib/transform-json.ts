@@ -14,19 +14,25 @@ type XYPosition = {
 
 type ObjectToNodeResult = {
   maxId: number,
-  nodes: Node[],
   maxPosition: XYPosition,
+  nodes: Node[],
 }
 
 // TODO: refactor to
 // * also return edges
-// * take an array of objects as input
-// * compute next position
-// * compute id properly
-export function toNodes(
+export function createNodes(
   objects: any[]
 ): Node[] {
-  return [];
+  let id = 0;
+  let position = {x: 0, y: 0};
+
+  return objects.reduce((acc, cur) => {
+    const { maxId, maxPosition, nodes } = objectToNode(id, position, cur);
+    id = nextId(maxId);
+    position = nextPosition(maxPosition);
+    acc.push(...nodes);
+    return acc;
+  }, []);
 }
 
 export function objectToNode(
@@ -64,7 +70,7 @@ export function objectToNode(
   }
 
   const recursiveHandler = (currentObject: any) => {
-    const { maxId, maxPosition, nodes } = objectToNode(localMaxId + 1, nextPosition(localMaxPosition), currentObject);
+    const { maxId, maxPosition, nodes } = objectToNode(nextId(localMaxId), nextPosition(localMaxPosition), currentObject);
     result.push(...nodes);
     localMaxId = maxId;
     localMaxPosition = maxPosition;
@@ -98,6 +104,10 @@ function nextPosition(position: XYPosition): XYPosition {
     x: position.x,
     y: position.y + 150,
   };
+}
+
+function nextId(id: number) {
+  return id + 1;
 }
 
 function createJsonNode(id: number, position: XYPosition, object: any): Node | null {

@@ -9,11 +9,11 @@
   // 👇 this is important! You need to import the styles for Svelte Flow to work
   import '@xyflow/svelte/dist/style.css';
   import JsonNode from './lib/JsonNode.svelte';
-  import { objectToNode } from './lib/transform-json';
+  import { createNodes } from './lib/transform-json';
+
+  const computedNodes = createNodes(data);
 
   // We are using writables for the nodes and edges to sync them easily. When a user drags a node for example, Svelte Flow updates its position.
-  const computedNodes = objectToNode(0, { x: 0, y: 0 }, data[0]).nodes;
-  console.log(computedNodes)
   const nodes = writable(computedNodes);
 
   // same for edges
