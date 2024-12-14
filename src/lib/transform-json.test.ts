@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { toNodes } from './transform-json';
+import { objectToNode } from './transform-json';
 
 it('should transform a single node', () => {
   const input = {
@@ -7,14 +7,16 @@ it('should transform a single node', () => {
   };
 
   const expected = [{
-    id: '1',
+    id: '0',
     position: { x: 0, y: 0 },
     type: 'jsonNode',
     data: { content: input }
   }];
 
-  const got = toNodes('1', {x: 0, y: 0}, input);
-  expect(got).toEqual(expected);
+  const got = objectToNode(0, {x: 0, y: 0}, input);
+  expect(got.nodes).toEqual(expected);
+  expect(got.maxId).toBe(0);
+  expect(got.maxPosition).toEqual({ x: 0, y: 0 });
 });
 
 it('should transform a single nested node', () => {
@@ -30,27 +32,29 @@ it('should transform a single nested node', () => {
 
   const expected = [
     {
-      id: '1',
+      id: '0',
       position: { x: 0, y: 0 },
       type: 'jsonNode',
       data: { content: { property: "a" } }
     },
     {
-      id: '2',
-      position: { x: 0, y: 0 },
+      id: '1',
+      position: { x: 0, y: 150 },
       type: 'jsonNode',
       data: { content: { property: "b" } }
     },
     {
-      id: '3',
-      position: { x: 0, y: 0 },
+      id: '2',
+      position: { x: 0, y: 300 },
       type: 'jsonNode',
       data: { content: { property: "c" } }
     },
   ];
 
-  const got = toNodes('1', {x: 0, y: 0}, input);
-  expect(got).toEqual(expected);
+  const got = objectToNode(0, {x: 0, y: 0}, input);
+  expect(got.nodes).toEqual(expected);
+  expect(got.maxId).toBe(2);
+  expect(got.maxPosition).toEqual({ x: 0, y: 300 });
 });
 
 it('should transform nodes in arrays', () => {
@@ -68,25 +72,27 @@ it('should transform nodes in arrays', () => {
 
   const expected = [
     {
-      id: '1',
+      id: '0',
       position: { x: 0, y: 0 },
       type: 'jsonNode',
       data: { content: { property: "a" } }
     },
     {
-      id: '2',
-      position: { x: 0, y: 0 },
+      id: '1',
+      position: { x: 0, y: 150 },
       type: 'jsonNode',
       data: { content: { property: "b" } }
     },
     {
-      id: '3',
-      position: { x: 0, y: 0 },
+      id: '2',
+      position: { x: 0, y: 300 },
       type: 'jsonNode',
       data: { content: { property: "c" } }
     },
   ];
 
-  const got = toNodes('1', {x: 0, y: 0}, input);
-  expect(got).toEqual(expected);
+  const got = objectToNode(0, {x: 0, y: 0}, input);
+  expect(got.nodes).toEqual(expected);
+  expect(got.maxId).toBe(2);
+  expect(got.maxPosition).toEqual({ x: 0, y: 300 });
 });
