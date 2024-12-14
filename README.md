@@ -1,5 +1,9 @@
 # json-viewer
 
+### About
+
+A simple json viewer, running entierely in the browser, in a backend-free world :raised_hands:.
+
 ### Getting started
 
 ```
