@@ -26,3 +26,9 @@ pnpm run lint
 Simply add json files in the *assets* directory.
 
 > example json files were generated through ChatGPT.
+
+### Dependencies
+
+Built with:
+* [svelte](https://svelte.dev/)
+* [svelteflow](https://svelteflow.dev/)
