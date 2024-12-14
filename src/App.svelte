@@ -9,23 +9,18 @@
   // 👇 this is important! You need to import the styles for Svelte Flow to work
   import '@xyflow/svelte/dist/style.css';
   import JsonNode from './lib/JsonNode.svelte';
-  import { createNodes } from './lib/transform-json';
+  import { createNodes } from './lib/create-nodes';
 
   const computedNodes = createNodes(data);
 
+  console.debug(computedNodes.nodes)
+  console.debug(computedNodes.edges)
+
   // We are using writables for the nodes and edges to sync them easily. When a user drags a node for example, Svelte Flow updates its position.
-  const nodes = writable(computedNodes);
+  const nodes = writable(computedNodes.nodes);
 
   // same for edges
-  const edges = writable([
-    //{
-    //  id: '1-2',
-    //  type: 'default',
-    //  source: '1',
-    //  target: '2',
-    //  label: 'Edge Text'
-    //}
-  ]);
+  const edges = writable(computedNodes.edges);
 
   const snapGrid: [number, number] = [25, 25];
 
