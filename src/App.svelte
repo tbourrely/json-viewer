@@ -12,7 +12,9 @@
   import { objectToNode } from './lib/transform-json';
 
   // We are using writables for the nodes and edges to sync them easily. When a user drags a node for example, Svelte Flow updates its position.
-  const nodes = writable(objectToNode(0, { x: 0, y: 0 }, data[0]).nodes);
+  const computedNodes = objectToNode(0, { x: 0, y: 0 }, data[0]).nodes;
+  console.log(computedNodes)
+  const nodes = writable(computedNodes);
 
   // same for edges
   const edges = writable([

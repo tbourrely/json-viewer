@@ -1,6 +1,15 @@
 import { expect, it } from 'vitest';
 import { cleanupJson } from './cleanup-json';
 
+it('should not cleanup a string', () => {
+  const input = "test";
+
+  const expected = "test";
+
+  const got = cleanupJson(input);
+  expect(got).toEqual(expected);
+});
+
 it('should remove sub object', () => {
   const input = {
     property: "a",
@@ -13,7 +22,7 @@ it('should remove sub object', () => {
   expect(got).toEqual(expected);
 });
 
-it('should remove objects in arrays', () => {
+it('should remove arrays', () => {
   const input = {
     property: "a",
     subitems: [
@@ -23,24 +32,7 @@ it('should remove objects in arrays', () => {
     ]
   };
 
-  const expected = { property: "a", subitems: ["test", 1] };
-
-  const got = cleanupJson(input);
-  expect(got).toEqual(expected);
-});
-
-it('should remove objects in nested arrays', () => {
-  const input = {
-    property: "a",
-    subitems: [
-      { property: "b" },
-      "test",
-      1,
-      [ 2, 3, { property: "c" } ]
-    ]
-  };
-
-  const expected = { property: "a", subitems: ["test", 1, [2, 3]] };
+  const expected = { property: "a" };
 
   const got = cleanupJson(input);
   expect(got).toEqual(expected);

@@ -66,7 +66,8 @@ it('should transform nodes in arrays', () => {
       },
       {
         property: "c"
-      }
+      },
+      "test",
     ]
   };
 
@@ -81,18 +82,30 @@ it('should transform nodes in arrays', () => {
       id: '1',
       position: { x: 0, y: 150 },
       type: 'jsonNode',
-      data: { content: { property: "b" } }
+      data: { content: "subs" }
     },
     {
       id: '2',
       position: { x: 0, y: 300 },
       type: 'jsonNode',
+      data: { content: { property: "b" } }
+    },
+    {
+      id: '3',
+      position: { x: 0, y: 450 },
+      type: 'jsonNode',
       data: { content: { property: "c" } }
+    },
+    {
+      id: '4',
+      position: { x: 0, y: 600 },
+      type: 'jsonNode',
+      data: { content: "test" }
     },
   ];
 
   const got = objectToNode(0, {x: 0, y: 0}, input);
   expect(got.nodes).toEqual(expected);
-  expect(got.maxId).toBe(2);
-  expect(got.maxPosition).toEqual({ x: 0, y: 300 });
+  expect(got.maxId).toBe(4);
+  expect(got.maxPosition).toEqual({ x: 0, y: 600 });
 });

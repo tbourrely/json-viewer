@@ -48,6 +48,14 @@ export function objectToNode(
     });
   }
 
+  if (typeof object !== 'object') {
+    return {
+      maxId: localMaxId,
+      maxPosition: localMaxPosition,
+      nodes: result,
+    };
+  }
+
   const recursiveHandler = (currentObject: any) => {
     const { maxId, maxPosition, nodes } = objectToNode(localMaxId + 1, nextPosition(localMaxPosition), currentObject);
     result.push(...nodes);
@@ -55,19 +63,20 @@ export function objectToNode(
     localMaxPosition = maxPosition;
   };
 
-  Object.values(object).forEach((item) => {
-    if (typeof item !== 'object') {
+  Object.entries(object).forEach(([key, value]) => {
+    if (typeof value !== 'object') {
       return;
     }
 
-    if (Array.isArray(item)) {
-      item.forEach(
+    if (Array.isArray(value)) {
+      recursiveHandler(key);
+      value.forEach(
         (content) => recursiveHandler(content) 
       );
       return;
     }
 
-    recursiveHandler(item);
+    recursiveHandler(value);
   });
 
   return {
