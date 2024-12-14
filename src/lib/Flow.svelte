@@ -10,7 +10,7 @@
   import { createNodes } from './create-nodes';
   import { files } from './files';
   import { getLayoutedElements, initGraph } from './layout';
-    import type { XYPosition } from './types';
+  import type { XYPosition } from './types';
 
   const nodes = writable([]);
   const edges = writable([]);
