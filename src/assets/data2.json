@@ -1,0 +1,186 @@
+[
+	{
+		"node1": {
+			"id": 1,
+			"name": "Root Node",
+			"description": "This is the root node.",
+			"tags": ["root", "start"],
+			"children_ids": [2, 3],
+			"node2": {
+				"id": 2,
+				"name": "Node 2",
+				"description": "This is node 2.",
+				"tags": ["level2", "branchA"],
+				"children_ids": [4],
+				"node4": {
+					"id": 4,
+					"name": "Node 4",
+					"description": "This is node 4.",
+					"tags": ["level4", "branchA1"],
+					"children_ids": [8],
+					"node8": {
+						"id": 8,
+						"name": "Node 8",
+						"description": "This is node 8.",
+						"tags": ["level8", "branchA1-1"],
+						"children_ids": [16],
+						"node16": {
+							"id": 16,
+							"name": "Node 16",
+							"description": "This is node 16.",
+							"tags": ["level16", "branchA1-1-1"],
+							"children_ids": [32],
+							"node32": {
+								"id": 32,
+								"name": "Node 32",
+								"description": "This is node 32.",
+								"tags": ["level32", "branchA1-1-1-1"],
+								"children_ids": [64],
+								"node64": {
+									"id": 64,
+									"name": "Node 64",
+									"description": "This is node 64.",
+									"tags": ["level64", "branchA1-1-1-1-1"],
+									"children_ids": [128],
+									"node128": {
+										"id": 128,
+										"name": "Node 128",
+										"description": "This is node 128.",
+										"tags": ["level128", "branchA1-1-1-1-1-1"],
+										"children_ids": [256],
+										"node256": {
+											"id": 256,
+											"name": "Node 256",
+											"description": "This is node 256.",
+											"tags": ["level256", "branchA1-1-1-1-1-1-1"],
+											"children_ids": [512],
+											"node512": {
+												"id": 512,
+												"name": "Node 512",
+												"description": "This is node 512.",
+												"tags": ["level512", "branchA1-1-1-1-1-1-1-1"],
+												"children_ids": [1024],
+												"node1024": {
+													"id": 1024,
+													"name": "Node 1024",
+													"description": "This is node 1024.",
+													"tags": ["level1024", "branchA1-1-1-1-1-1-1-1-1"],
+													"children_ids": [2048],
+													"node2048": {
+														"id": 2048,
+														"name": "Node 2048",
+														"description": "This is node 2048.",
+														"tags": ["level2048", "branchA1-1-1-1-1-1-1-1-1-1"],
+														"children_ids": [4096],
+														"node4096": {
+															"id": 4096,
+															"name": "Node 4096",
+															"description": "This is node 4096.",
+															"tags": ["level4096", "branchA1-1-1-1-1-1-1-1-1-1-1"],
+															"children_ids": [8192],
+															"node8192": {
+																"id": 8192,
+																"name": "Node 8192",
+																"description": "This is node 8192.",
+																"tags": ["level8192", "branchA1-1-1-1-1-1-1-1-1-1-1-1"],
+																"children_ids": [16384],
+																"node16384": {
+																	"id": 16384,
+																	"name": "Node 16384",
+																	"description": "This is node 16384.",
+																	"tags": ["level16384", "branchA1-1-1-1-1-1-1-1-1-1-1-1-1"],
+																	"children_ids": []
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"node3": {
+				"id": 3,
+				"name": "Node 3",
+				"description": "This is node 3.",
+				"tags": ["level3", "branchB"],
+				"children_ids": [6],
+				"node6": {
+					"id": 6,
+					"name": "Node 6",
+					"description": "This is node 6.",
+					"tags": ["level6", "branchB1"],
+					"children_ids": [12],
+					"node12": {
+						"id": 12,
+						"name": "Node 12",
+						"description": "This is node 12.",
+						"tags": ["level12", "branchB1-1"],
+						"children_ids": [24],
+						"node24": {
+							"id": 24,
+							"name": "Node 24",
+							"description": "This is node 24.",
+							"tags": ["level24", "branchB1-1-1"],
+							"children_ids": [48],
+							"node48": {
+								"id": 48,
+								"name": "Node 48",
+								"description": "This is node 48.",
+								"tags": ["level48", "branchB1-1-1-1"],
+								"children_ids": [96],
+								"node96": {
+									"id": 96,
+									"name": "Node 96",
+									"description": "This is node 96.",
+									"tags": ["level96", "branchB1-1-1-1-1"],
+									"children_ids": [192],
+									"node192": {
+										"id": 192,
+										"name": "Node 192",
+										"description": "This is node 192.",
+										"tags": ["level192", "branchB1-1-1-1-1-1"],
+										"children_ids": [384],
+										"node384": {
+											"id": 384,
+											"name": "Node 384",
+											"description": "This is node 384.",
+											"tags": ["level384", "branchB1-1-1-1-1-1-1"],
+											"children_ids": [768],
+											"node768": {
+												"id": 768,
+												"name": "Node 768",
+												"description": "This is node 768.",
+												"tags": ["level768", "branchB1-1-1-1-1-1-1-1"],
+												"children_ids": [1536],
+												"node1536": {
+													"id": 1536,
+													"name": "Node 1536",
+													"description": "This is node 1536.",
+													"tags": ["level1536", "branchB1-1-1-1-1-1-1-1-1"],
+													"children_ids": [3072],
+													"node3072": {
+														"id": 3072,
+														"name": "Node 3072",
+														"description": "This is node 3072.",
+														"tags": ["level3072", "branchB1-1-1-1-1-1-1-1-1-1"],
+														"children_ids": []
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+]
