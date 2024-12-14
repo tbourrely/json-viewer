@@ -28,4 +28,12 @@
     border-radius: 5px;
     text-align: center;
   }
+
+  .key {
+    color: #BD93F9;
+  }
+
+  .value {
+    color: #44475A;
+  }
 </style>

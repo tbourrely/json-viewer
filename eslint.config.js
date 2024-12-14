@@ -1,6 +1,8 @@
 import eslintPluginSvelte from 'eslint-plugin-svelte';
 import eslint from '@eslint/js';
 import tseslint from "typescript-eslint";
+import svelteConfig from './svelte.config.js';
+import globals from "globals";
 
 export default [
   eslint.configs.recommended,
@@ -10,8 +12,10 @@ export default [
     files: ['**/*.svelte'],
     languageOptions: {
       parserOptions: {
-        parser: '@typescript-eslint/parser'
-      }
+        svelteConfig,
+        parser: '@typescript-eslint/parser',
+      },
+      globals: { ...globals.browser }
     }
   },
   {

@@ -4,6 +4,10 @@
 			"id": 1,
 			"name": "Node 1",
 			"description": "This is level 1",
+			"description1": "This is level 1",
+			"description2": "This is level 1",
+			"description3": "This is level 1",
+			"description4": "This is level 1",
 			"tags": ["tag1", "tagA", "root"],
 			"children_ids": [2],
 			"level2": {

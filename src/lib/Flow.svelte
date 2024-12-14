@@ -2,14 +2,15 @@
   import { get, writable } from 'svelte/store';
   import {
     SvelteFlow,
-    Controls,
     useSvelteFlow,
+    type Node,
   } from '@xyflow/svelte';
   import '@xyflow/svelte/dist/style.css';
   import JsonNode from './JsonNode.svelte';
   import { createNodes } from './create-nodes';
   import { files } from './files';
   import { getLayoutedElements, initGraph } from './layout';
+    import type { XYPosition } from './types';
 
   const nodes = writable([]);
   const edges = writable([]);
@@ -17,11 +18,11 @@
   const snapGrid: [number, number] = [25, 25];
   const nodeTypes = {jsonNode: JsonNode}
 
-  const { deleteElements } = useSvelteFlow();
+  const { deleteElements, setCenter } = useSvelteFlow();
 
   const graph = initGraph();
   const nodeWidth = 300;
-  const nodeHeight = 200;
+  const nodeHeight = 400;
 
   let { file } = $props();
 
@@ -45,9 +46,23 @@
         );
         nodes.set(layoutedNodes as any);
         edges.set(layoutedEdges as any);
+
+        const center = computeCenter(layoutedNodes[0], nodeWidth, nodeHeight);
+        setCenter(
+          center.x,
+          center.y,
+          { zoom: 1.5 },
+        )
       });
     }
   })
+
+  function computeCenter(node: Node, fallbackWidth: number, fallbackHeight: number): XYPosition {
+    return {
+      x: node.position.x + (node.width || fallbackWidth / 2),
+      y: node.position.y + (node.height || fallbackHeight / 2),
+    }
+  }
 </script>
 
 <SvelteFlow
@@ -55,7 +70,24 @@
   {edges}
   {snapGrid}
   {nodeTypes}
-  fitView
+  class="flow"
 >
-  <Controls />
 </SvelteFlow>
+
+<style>
+:global(.flow) {
+  background-color: #282A36!important;
+}
+
+:global(.svelte-flow__node) {
+  background-color: #F8F8F2!important;
+  color: #44475A!important;
+  border: 3px solid #6272A4;
+}
+
+:global(.svelte-flow__handle) {
+  background-color: transparent!important;
+  border: none;
+
+}
+</style>

@@ -21,8 +21,6 @@
       {/each}
     </select>
   </div>
-
-  {file}
 </div>
 
 <style>
@@ -30,5 +28,6 @@
   position: absolute;
   top: 1rem;
   left: 1rem;
+  color: #F8F8F2;
 }
 </style>
