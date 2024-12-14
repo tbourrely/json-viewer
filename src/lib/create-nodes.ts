@@ -1,18 +1,16 @@
 import { cleanupJson } from './cleanup-json';
 import { nextId } from './next-id';
-import { nextPosition } from './next-position';
 import type { CreateNodesResult, Edge, ObjectToNodeResult, Previous, XYPosition, Node } from './types';
+
+export const position = { x: 0, y: 0 };
 
 export function createNodes(
   objects: any[]
 ): CreateNodesResult {
   let id = 0;
-  let position = {x: 0, y: 0};
-
   return objects.reduce((acc, cur) => {
-    const { maxId, maxPosition, nodes, edges } = objectToNode(id, position, cur, null);
+    const { maxId, nodes, edges } = objectToNode(id, position, cur, null);
     id = nextId(maxId);
-    position = nextPosition(maxPosition, false, false, true, false);
     acc.nodes.push(...nodes);
     acc.edges.push(...edges);
     return acc;
@@ -28,15 +26,14 @@ export function objectToNode(
   const nodes: Node[] = [];
   const edges: Edge[] = [];
   let localMaxId: number = id;
-  let localMaxPosition = position;
   let nodeInfo: Node | null = null;
 
   if (typeof object === 'object') {
-    nodeInfo = createJsonNode(localMaxId, localMaxPosition, object);
+    nodeInfo = createJsonNode(localMaxId, position, object);
   } else {
     nodeInfo = createNode(
       localMaxId,
-      localMaxPosition,
+      position,
       'default',
       { label: object },
     );
@@ -60,7 +57,6 @@ export function objectToNode(
   if (typeof object !== 'object') {
     return {
       maxId: localMaxId,
-      maxPosition: localMaxPosition,
       nodes,
       edges,
     };
@@ -71,11 +67,9 @@ export function objectToNode(
     position: XYPosition,
     currentObject: any,
     parent: Previous | null,
-    ignorePosition?: boolean,
-  ): XYPosition => {
+  ) => {
     const {
       maxId,
-      maxPosition,
       nodes: subNodes,
       edges: subEdges,
     } = objectToNode(id, position, currentObject, parent);
@@ -83,8 +77,6 @@ export function objectToNode(
     nodes.push(...subNodes);
     edges.push(...subEdges);
     localMaxId = maxId;
-    if (!ignorePosition) localMaxPosition = maxPosition;
-    return maxPosition;
   };
 
   const parent = nodes[nodes.length - 1];
@@ -96,15 +88,13 @@ export function objectToNode(
     if (Array.isArray(value)) {
       const arrayRoot = nodes[nodes.length - 1];
 
-      let pos = localMaxPosition;
       value.forEach(
-        (content, idx) => {
-          pos = recursiveHandler(
+        (content) => {
+          recursiveHandler(
             nextId(localMaxId),
-            nextPosition(pos, false, idx !== 0, idx === 0, false),
+            position,
             content,
             arrayRoot ? { id: arrayRoot.id, key } : null,
-            idx !== 0
           ) 
         }
       );
@@ -114,7 +104,7 @@ export function objectToNode(
 
     recursiveHandler(
       nextId(localMaxId),
-      nextPosition(localMaxPosition, false, false, true, false),
+      position,
       value,
       parent ? { id: parent.id, key } : null
     );
@@ -122,7 +112,6 @@ export function objectToNode(
 
   return {
     maxId: localMaxId,
-    maxPosition: localMaxPosition,
     nodes,
     edges,
   };

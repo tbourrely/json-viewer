@@ -20,7 +20,6 @@ export type XYPosition = {
 
 export type ObjectToNodeResult = {
   maxId: number,
-  maxPosition: XYPosition,
   nodes: Node[],
   edges: Edge[],
 }

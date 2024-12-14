@@ -9,6 +9,7 @@
   import JsonNode from './JsonNode.svelte';
   import { createNodes } from './create-nodes';
   import { files } from './files';
+  import { getLayoutedElements, initGraph } from './layout';
 
   const nodes = writable([]);
   const edges = writable([]);
@@ -16,9 +17,14 @@
   const snapGrid: [number, number] = [25, 25];
   const nodeTypes = {jsonNode: JsonNode}
 
-  const {deleteElements} = useSvelteFlow();
+  const { deleteElements } = useSvelteFlow();
+
+  const graph = initGraph();
+  const nodeWidth = 300;
+  const nodeHeight = 200;
 
   let { file } = $props();
+
   $effect(() => {
     const nodeList = get(nodes);
     const edgeList = get(edges);
@@ -27,8 +33,18 @@
     if (file !== '') {
       Object.values(files)[file]().then(async (content: any) => {
         const computedNodes = createNodes(content.default);
-        nodes.set(computedNodes.nodes as any);
-        edges.set(computedNodes.edges as any);
+        const {
+          nodes: layoutedNodes,
+          edges: layoutedEdges
+        } = getLayoutedElements(
+          graph,
+          nodeWidth,
+          nodeHeight,
+          computedNodes.nodes,
+          computedNodes.edges,
+        );
+        nodes.set(layoutedNodes as any);
+        edges.set(layoutedEdges as any);
       });
     }
   })

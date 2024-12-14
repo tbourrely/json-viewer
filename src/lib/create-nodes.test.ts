@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createNodes, objectToNode } from './create-nodes';
+import { createNodes, objectToNode, position } from './create-nodes';
 
 describe('objectToNode', () => {
   it('should transform a single node', () => {
@@ -9,15 +9,14 @@ describe('objectToNode', () => {
 
     const expected = [{
       id: '0',
-      position: { x: 0, y: 0 },
+      position,
       type: 'jsonNode',
       data: { content: input }
     }];
 
-    const got = objectToNode(0, {x: 0, y: 0}, input, null);
+    const got = objectToNode(0, position, input, null);
     expect(got.nodes).toEqual(expected);
     expect(got.maxId).toBe(0);
-    expect(got.maxPosition).toEqual({ x: 0, y: 0 });
   });
 
   it('should transform a single nested node', () => {
@@ -34,19 +33,19 @@ describe('objectToNode', () => {
     const expectedNodes = [
       {
         id: '0',
-        position: { x: 0, y: 0 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "a" } }
       },
       {
         id: '1',
-        position: { x: 0, y: 150 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "b" } }
       },
       {
         id: '2',
-        position: { x: 0, y: 300 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "c" } }
       },
@@ -69,11 +68,10 @@ describe('objectToNode', () => {
       },
     ];
 
-    const got = objectToNode(0, {x: 0, y: 0}, input, null);
+    const got = objectToNode(0, position, input, null);
     expect(got.nodes).toEqual(expectedNodes);
     expect(got.edges).toEqual(expectedEdges);
     expect(got.maxId).toBe(2);
-    expect(got.maxPosition).toEqual({ x: 0, y: 300 });
   });
 
   it('should transform nodes in arrays', () => {
@@ -93,25 +91,25 @@ describe('objectToNode', () => {
     const expectedNodes = [
       {
         id: '0',
-        position: { x: 0, y: 0 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "a" } }
       },
       {
         id: '1',
-        position: { x: 0, y: 150 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "b" } }
       },
       {
         id: '2',
-        position: { x: 150, y: 150 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "c" } }
       },
       {
         id: '3',
-        position: { x: 300, y: 150 },
+        position,
         type: 'default',
         data: { label: "test" }
       },
@@ -141,11 +139,10 @@ describe('objectToNode', () => {
       },
     ];
 
-    const got = objectToNode(0, {x: 0, y: 0}, input, null);
+    const got = objectToNode(0, position, input, null);
     expect(got.nodes).toEqual(expectedNodes);
     expect(got.edges).toEqual(expectedEdges);
     expect(got.maxId).toBe(3);
-    expect(got.maxPosition).toEqual({ x: 0, y: 150 });
   });
 
   it('should handle both objects and arrays', () => {
@@ -161,37 +158,37 @@ describe('objectToNode', () => {
     const expectedNodes = [
       {
         id: '0',
-        position: { x: 0, y: 0 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "a" } }
       },
       {
         id: '1',
-        position: { x: 0, y: 150 },
+        position,
         type: 'default',
         data: { label: 'b' }
       },
       {
         id: '2',
-        position: { x: 150, y: 150 },
+        position,
         type: 'default',
         data: { label: 'c' }
       },
       {
         id: '3',
-        position: { x: 0, y: 300 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "d" } }
       },
       {
         id: '4',
-        position: { x: 0, y: 450},
+        position,
         type: 'default',
         data: { label: 'e' }
       },
       {
         id: '5',
-        position: { x: 150, y: 450 },
+        position,
         type: 'default',
         data: { label: 'f' }
       },
@@ -235,7 +232,7 @@ describe('objectToNode', () => {
       },
     ];
 
-    const got = objectToNode(0, { x: 0, y: 0 }, input, null);
+    const got = objectToNode(0, position, input, null);
 
     expect(got.nodes).toEqual(expectedNodes);
     expect(got.edges).toEqual(expectedEdges);
@@ -258,37 +255,37 @@ describe('createNodes', () => {
     const expectedNodes = [
       {
         id: '0',
-        position: { x: 0, y: 0 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "a" } }
       },
       {
         id: '1',
-        position: { x: 0, y: 150 },
+        position,
         type: 'default',
         data: { label: "test" }
       },
       {
         id: '2',
-        position: { x: 150, y: 150 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "b" } }
       },
       {
         id: '3',
-        position: { x: 0, y: 300 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "c" } }
       },
       {
         id: '4',
-        position: { x: 0, y: 450 },
+        position,
         type: 'default',
         data: { label: "test2" }
       },
       {
         id: '5',
-        position: { x: 150, y: 450 },
+        position,
         type: 'jsonNode',
         data: { content: { property: "d" } }
       },

@@ -1,4 +1,4 @@
-export function cleanupJson(input: any): Object | null {
+export function cleanupJson(input: any): object | null {
   if (!input) return null;
   if (typeof input !== 'object') return input;
   if (Array.isArray(input)) return null;
