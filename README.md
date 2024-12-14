@@ -25,6 +25,13 @@ pnpm run test
 pnpm run lint
 ```
 
+### Docker
+
+```
+docker build -t json-viewer .
+docker run -p 8000:8000 -it --rm json-viewer
+```
+
 ### Adding json files
 
 Simply add json files in the *assets* directory.
