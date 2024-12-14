@@ -2,7 +2,7 @@
 
 ### About
 
-A simple json viewer, running entierely in the browser, in a backend-free world :raised_hands:.
+A simple json viewer, running entirely in the browser, in a backend-free world :raised_hands:.
 
 ### Getting started
 
@@ -43,3 +43,4 @@ Simply add json files in the *assets* directory.
 Built with:
 * [svelte](https://svelte.dev/)
 * [svelteflow](https://svelteflow.dev/)
+* [dagre](https://github.com/dagrejs/dagre)
