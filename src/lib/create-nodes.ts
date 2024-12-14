@@ -87,12 +87,11 @@ export function objectToNode(
     return maxPosition;
   };
 
+  const parent = nodes[nodes.length - 1];
   Object.entries(object).forEach(([key, value]) => {
     if (typeof value !== 'object') {
       return;
     }
-
-    const parent = nodes[nodes.length - 1];
 
     if (Array.isArray(value)) {
       const arrayRoot = nodes[nodes.length - 1];

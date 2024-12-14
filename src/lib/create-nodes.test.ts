@@ -147,6 +147,99 @@ describe('objectToNode', () => {
     expect(got.maxId).toBe(3);
     expect(got.maxPosition).toEqual({ x: 0, y: 150 });
   });
+
+  it('should handle both objects and arrays', () => {
+    const input = {
+      property: 'a',
+      subs: ['b', 'c'],
+      subProperty: {
+        property: 'd',
+        subs: ['e', 'f']
+      }
+    };
+
+    const expectedNodes = [
+      {
+        id: '0',
+        position: { x: 0, y: 0 },
+        type: 'jsonNode',
+        data: { content: { property: "a" } }
+      },
+      {
+        id: '1',
+        position: { x: 0, y: 150 },
+        type: 'default',
+        data: { label: 'b' }
+      },
+      {
+        id: '2',
+        position: { x: 150, y: 150 },
+        type: 'default',
+        data: { label: 'c' }
+      },
+      {
+        id: '3',
+        position: { x: 0, y: 300 },
+        type: 'jsonNode',
+        data: { content: { property: "d" } }
+      },
+      {
+        id: '4',
+        position: { x: 0, y: 450},
+        type: 'default',
+        data: { label: 'e' }
+      },
+      {
+        id: '5',
+        position: { x: 150, y: 450 },
+        type: 'default',
+        data: { label: 'f' }
+      },
+    ];
+
+    const expectedEdges = [
+      {
+        id: '0-1',
+        source: '0',
+        target: '1',
+        type: 'default',
+        label: 'subs',
+      },
+      {
+        id: '0-2',
+        source: '0',
+        target: '2',
+        type: 'default',
+        label: 'subs',
+      },
+      {
+        id: '0-3',
+        source: '0',
+        target: '3',
+        type: 'default',
+        label: 'subProperty',
+      },
+      {
+        id: '3-4',
+        source: '3',
+        target: '4',
+        type: 'default',
+        label: 'subs',
+      },
+      {
+        id: '3-5',
+        source: '3',
+        target: '5',
+        type: 'default',
+        label: 'subs',
+      },
+    ];
+
+    const got = objectToNode(0, { x: 0, y: 0 }, input, null);
+
+    expect(got.nodes).toEqual(expectedNodes);
+    expect(got.edges).toEqual(expectedEdges);
+  });
 });
 
 describe('createNodes', () => {
