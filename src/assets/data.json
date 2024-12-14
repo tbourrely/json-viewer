@@ -1,0 +1,71 @@
+[
+	{
+		"level1": {
+			"id": 1,
+			"name": "Level 1 Object",
+			"createdAt": "2024-12-14T00:00:00Z",
+			"level2": {
+				"id": 2,
+				"name": "Level 2 Object",
+				"isActive": true,
+				"metadata": {
+					"type": "secondary",
+					"description": "This is level 2 object metadata",
+					"level3": {
+						"id": 3,
+						"name": "Level 3 Object",
+						"isEnabled": false,
+						"tags": ["alpha", "beta"],
+						"createdAt": "2024-11-20T12:00:00Z",
+						"level4": {
+							"id": 4,
+							"name": "Level 4 Object",
+							"price": 199.99,
+							"currency": "USD",
+							"available": true,
+							"level5": {
+								"id": 5,
+								"name": "Level 5 Object",
+								"quantity": 1000,
+								"status": "in stock",
+								"level6": {
+									"id": 6,
+									"name": "Level 6 Object",
+									"tags": ["urgent", "featured"],
+									"level7": {
+										"id": 7,
+										"name": "Level 7 Object",
+										"details": {
+											"color": "blue",
+											"size": "M",
+											"level8": {
+												"id": 8,
+												"name": "Level 8 Object",
+												"attributes": {
+													"shape": "round",
+													"material": "plastic",
+													"level9": {
+														"id": 9,
+														"name": "Level 9 Object",
+														"isDiscounted": true,
+														"discount": 15,
+														"level10": {
+															"id": 10,
+															"name": "Level 10 Object",
+															"message": "This is the deepest level with discounts",
+															"value": 50.0
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+]
