@@ -18,6 +18,7 @@
     </div>
   {/each}
 </div>
+<Handle type="target" position={Position.Bottom} style="background: #555;" {isConnectable} />
 
 <style>
   :global(.svelte-flow__node-jsonNode) {

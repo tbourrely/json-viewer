@@ -38,14 +38,21 @@ export function objectToNode(
   let localMaxId: number = id;
   let localMaxPosition = position;
 
-  const content = cleanupJson(object);
-  if (content) {
-    result.push({
-      id: String(id),
-      position,
-      type: 'jsonNode',
-      data: { content },
-    });
+  let nodeInfo: Node | null = null;
+
+  if (typeof object === 'object') {
+      nodeInfo = createJsonNode(localMaxId, localMaxPosition, object);
+  } else {
+      nodeInfo = createNode(
+        localMaxId,
+        localMaxPosition,
+        'default',
+        { label: object },
+      );
+  }
+
+  if (nodeInfo) {
+    result.push(nodeInfo);
   }
 
   if (typeof object !== 'object') {
@@ -91,4 +98,27 @@ function nextPosition(position: XYPosition): XYPosition {
     x: position.x,
     y: position.y + 150,
   };
+}
+
+function createJsonNode(id: number, position: XYPosition, object: any): Node | null {
+  const cleaned = cleanupJson(object);
+  if (cleaned) {
+    return createNode(
+      id,
+      position,
+      'jsonNode',
+      { content: cleaned },
+    );
+  }
+
+  return null;
+}
+
+function createNode(id: number, position: XYPosition, type: string, data: any): Node {
+  return {
+        id: String(id),
+        position,
+        type,
+        data,
+  }
 }

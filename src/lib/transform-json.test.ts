@@ -81,8 +81,8 @@ it('should transform nodes in arrays', () => {
     {
       id: '1',
       position: { x: 0, y: 150 },
-      type: 'jsonNode',
-      data: { content: "subs" }
+      type: 'default',
+      data: { label: "subs" }
     },
     {
       id: '2',
@@ -99,8 +99,8 @@ it('should transform nodes in arrays', () => {
     {
       id: '4',
       position: { x: 0, y: 600 },
-      type: 'jsonNode',
-      data: { content: "test" }
+      type: 'default',
+      data: { label: "test" }
     },
   ];
 
