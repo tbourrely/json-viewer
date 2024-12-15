@@ -18,7 +18,7 @@
   const snapGrid: [number, number] = [25, 25];
   const nodeTypes = {jsonNode: JsonNode}
 
-  const { deleteElements, setCenter } = useSvelteFlow();
+  const { deleteElements, setCenter, getViewport, setViewport } = useSvelteFlow();
 
   const graph = initGraph();
   const nodeWidth = 300;
@@ -65,6 +65,35 @@
       y: node.position.y + (node.height || fallbackHeight / 2),
     }
   }
+
+  function moveViewport(event: KeyboardEvent) {
+    const gap = 100;
+    const options = { duration: 50 };
+    const nextVp = getViewport();
+
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'h':
+        setViewport({ ...nextVp, x: nextVp.x + gap }, options);
+        event.preventDefault();
+        break;
+      case 'ArrowDown':
+      case 'j':
+        setViewport({ ...nextVp, y: nextVp.y - gap }, options);
+        event.preventDefault();
+        break;
+      case 'ArrowUp':
+      case 'k':
+        setViewport({ ...nextVp, y: nextVp.y + gap }, options);
+        event.preventDefault();
+        break;
+      case 'ArrowRight':
+      case 'l':
+        setViewport({ ...nextVp, x: nextVp.x - gap }, options);
+        event.preventDefault();
+        break;
+    }
+  }
 </script>
 
 <SvelteFlow
@@ -76,6 +105,9 @@
   class="flow"
 >
 </SvelteFlow>
+<svelte:window
+    on:keydown={moveViewport}
+/>
 
 <style>
 :global(.flow) {
