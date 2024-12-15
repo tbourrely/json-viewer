@@ -47,12 +47,14 @@
         nodes.set(layoutedNodes as any);
         edges.set(layoutedEdges as any);
 
-        const center = computeCenter(layoutedNodes[0], nodeWidth, nodeHeight);
-        setCenter(
-          center.x,
-          center.y,
-          { zoom: 1.5 },
-        )
+        if (layoutedNodes[0]) {
+          const center = computeCenter(layoutedNodes[0], nodeWidth, nodeHeight);
+          setCenter(
+            center.x,
+            center.y,
+            { zoom: 1.5 },
+          );
+        }
       });
     }
   })

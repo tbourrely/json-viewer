@@ -25,46 +25,40 @@ export function objectToNode(
 ): ObjectToNodeResult {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
-  let localMaxId: number = id;
-  let nodeInfo: Node | null = null;
+  let maxId: number = id;
 
   if (!object) {
     return {
-      maxId: localMaxId,
+      maxId,
       nodes,
       edges,
     };
   }
 
-  if (typeof object === 'object') {
-    nodeInfo = createJsonNode(localMaxId, position, object);
-  } else {
-    nodeInfo = createNode(
-      localMaxId,
-      position,
-      'default',
-      { label: object },
-    );
-  }
+  const nodeInfo = typeof object === 'object' ?
+    createJsonNode(maxId, position, object) :
+    createNode( maxId, position, 'default', { label: object });
 
   if (nodeInfo) {
     nodes.push(nodeInfo);
 
     if (previous) {
-      const edge: Edge = {
+      edges.push({
         id: `${previous.id}-${nodeInfo.id}`,
         source: previous.id,
         target: nodeInfo.id,
         type: 'default',
         label: previous.key,
-      };
-      edges.push(edge);
+      });
     }
   }
 
+
+  // no need to parse object properties if it is 
+  // not an object
   if (typeof object !== 'object') {
     return {
-      maxId: localMaxId,
+      maxId,
       nodes,
       edges,
     };
@@ -77,32 +71,31 @@ export function objectToNode(
     parent: Previous | null,
   ) => {
     const {
-      maxId,
+      maxId: localMaxId,
       nodes: subNodes,
       edges: subEdges,
     } = objectToNode(id, position, currentObject, parent);
 
     nodes.push(...subNodes);
     edges.push(...subEdges);
-    localMaxId = maxId;
+    maxId = localMaxId;
   };
 
-  const parent = nodes[nodes.length - 1];
   Object.entries(object).forEach(([key, value]) => {
     if (typeof value !== 'object') {
       return;
     }
 
-    if (Array.isArray(value)) {
-      const arrayRoot = nodes[nodes.length - 1];
+    const previous = nodeInfo ? { id: nodeInfo.id, key } : null;
 
+    if (Array.isArray(value)) {
       value.forEach(
         (content) => {
           recursiveHandler(
-            nextId(localMaxId),
+            nextId(maxId),
             position,
             content,
-            arrayRoot ? { id: arrayRoot.id, key } : null,
+            previous,
           ) 
         }
       );
@@ -111,15 +104,15 @@ export function objectToNode(
     }
 
     recursiveHandler(
-      nextId(localMaxId),
+      nextId(maxId),
       position,
       value,
-      parent ? { id: parent.id, key } : null
+      previous,
     );
   });
 
   return {
-    maxId: localMaxId,
+    maxId,
     nodes,
     edges,
   };

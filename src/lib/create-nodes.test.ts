@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { createNodes, objectToNode, position } from './create-nodes';
+import type { Edge } from './types';
 
 describe('objectToNode', () => {
   it('should transform a single node', () => {
@@ -17,6 +18,38 @@ describe('objectToNode', () => {
     const got = objectToNode(0, position, input, null);
     expect(got.nodes).toEqual(expected);
     expect(got.maxId).toBe(0);
+  });
+
+  it.todo('should transform nested nodes without other properties', () => {
+    const input = {
+      property: 'a',
+      sub: {
+        resub: {
+          property: 'b'
+        }
+      }
+    };
+
+    const expectedNodes = [
+      {
+        id: '0',
+        position,
+        type: 'jsonNode',
+        data: { content: { property: 'a' } }
+      },
+      {
+        id: '2',
+        position,
+        type: 'jsonNode',
+        data: { content: { property: 'b' } }
+      },
+    ];
+
+    const expectedEdges: Edge[] = [];
+
+    const got = objectToNode(0, position, input, null);
+    expect(got.nodes).toEqual(expectedNodes);
+    expect(got.edges).toEqual(expectedEdges);
   });
 
   it('should transform a single nested node', () => {
@@ -152,7 +185,22 @@ describe('objectToNode', () => {
       subProperty: {
         property: 'd',
         subs: ['e', 'f']
-      }
+      },
+      subObjects: [
+        {
+          property: 'g',
+          subs: [],
+        },
+        {
+          property: 'h',
+          items: ['j', 'k'],
+          subs: [
+            {
+              property: 'l'
+            }
+          ]
+        }
+      ]
     };
 
     const expectedNodes = [
@@ -192,6 +240,36 @@ describe('objectToNode', () => {
         type: 'default',
         data: { label: 'f' }
       },
+      {
+        id: '6',
+        position,
+        type: 'jsonNode',
+        data: { content: { property: "g" } }
+      },
+      {
+        id: '7',
+        position,
+        type: 'jsonNode',
+        data: { content: { property: "h" } }
+      },
+      {
+        id: '8',
+        position,
+        type: 'default',
+        data: { label: 'j' }
+      },
+      {
+        id: '9',
+        position,
+        type: 'default',
+        data: { label: 'k' }
+      },
+      {
+        id: '10',
+        position,
+        type: 'jsonNode',
+        data: { content: { property: "l" } }
+      },
     ];
 
     const expectedEdges = [
@@ -227,6 +305,41 @@ describe('objectToNode', () => {
         id: '3-5',
         source: '3',
         target: '5',
+        type: 'default',
+        label: 'subs',
+      },
+      {
+        id: '0-6',
+        source: '0',
+        target: '6',
+        type: 'default',
+        label: 'subObjects',
+      },
+      {
+        id: '0-7',
+        source: '0',
+        target: '7',
+        type: 'default',
+        label: 'subObjects',
+      },
+      {
+        id: '7-8',
+        source: '7',
+        target: '8',
+        type: 'default',
+        label: 'items',
+      },
+      {
+        id: '7-9',
+        source: '7',
+        target: '9',
+        type: 'default',
+        label: 'items',
+      },
+      {
+        id: '7-10',
+        source: '7',
+        target: '10',
         type: 'default',
         label: 'subs',
       },
