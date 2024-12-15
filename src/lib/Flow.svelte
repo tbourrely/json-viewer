@@ -96,4 +96,8 @@
 :global(.svelte-flow__edge-label) {
   color: #44475A!important;
 }
+
+:global(.svelte-flow__attribution) {
+  display: none;
+}
 </style>
