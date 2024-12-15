@@ -67,6 +67,7 @@
 
 <SvelteFlow
   nodes={nodes as any}
+  onlyRenderVisibleElements
   {edges}
   {snapGrid}
   {nodeTypes}
