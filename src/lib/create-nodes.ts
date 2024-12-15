@@ -28,6 +28,14 @@ export function objectToNode(
   let localMaxId: number = id;
   let nodeInfo: Node | null = null;
 
+  if (!object) {
+    return {
+      maxId: localMaxId,
+      nodes,
+      edges,
+    };
+  }
+
   if (typeof object === 'object') {
     nodeInfo = createJsonNode(localMaxId, position, object);
   } else {
