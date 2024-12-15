@@ -7,6 +7,11 @@
 		"description2": "This is level 1",
 		"description3": "This is level 1",
 		"description4": "This is level 1",
+		"items": [
+			{
+				"subitems": [ { "property": "a", "property2": "b" }, { "property": "d" } ]
+			}
+		],
 		"subs": [
 			{
 				"id": 2,

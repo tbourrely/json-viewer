@@ -20,14 +20,18 @@ describe('objectToNode', () => {
     expect(got.maxId).toBe(0);
   });
 
-  it.todo('should transform nested nodes without other properties', () => {
+  it('should transform nested nodes without other properties', () => {
     const input = {
       property: 'a',
-      sub: {
-        resub: {
-          property: 'b'
+      subs: [
+        {
+          resubs: [
+            {
+              property: 'b'
+            }
+          ]
         }
-      }
+      ]
     };
 
     const expectedNodes = [
@@ -45,7 +49,15 @@ describe('objectToNode', () => {
       },
     ];
 
-    const expectedEdges: Edge[] = [];
+    const expectedEdges: Edge[] = [
+      {
+        id: '0-2',
+        source: '0',
+        target: '2',
+        type: 'default',
+        label: 'subs.resubs',
+      },
+    ];
 
     const got = objectToNode(0, position, input, null);
     expect(got.nodes).toEqual(expectedNodes);

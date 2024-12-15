@@ -86,7 +86,12 @@ export function objectToNode(
       return;
     }
 
-    const previous = nodeInfo ? { id: nodeInfo.id, key } : null;
+    let newPrevious = null;
+    if (nodeInfo) {
+      newPrevious = { id: nodeInfo.id, key };
+    } else if(previous) {
+      newPrevious = { id: previous.id, key: `${previous.key}.${key}` };
+    }
 
     if (Array.isArray(value)) {
       value.forEach(
@@ -95,7 +100,7 @@ export function objectToNode(
             nextId(maxId),
             position,
             content,
-            previous,
+            newPrevious,
           ) 
         }
       );
@@ -107,7 +112,7 @@ export function objectToNode(
       nextId(maxId),
       position,
       value,
-      previous,
+      newPrevious,
     );
   });
 
