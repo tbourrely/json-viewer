@@ -89,6 +89,9 @@
 :global(.svelte-flow__handle) {
   background-color: transparent!important;
   border: none;
+}
 
+:global(.svelte-flow__edge-label) {
+  color: #44475A!important;
 }
 </style>
