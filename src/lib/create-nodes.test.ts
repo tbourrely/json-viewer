@@ -39,7 +39,13 @@ describe('objectToNode', () => {
         id: '0',
         position,
         type: 'jsonNode',
-        data: { content: { property: 'a' } }
+        data: { content: { property: 'a', subs: '<array>' } }
+      },
+      {
+        id: '1',
+        position,
+        type: 'jsonNode',
+        data: { content: { resubs: '<array>' } }
       },
       {
         id: '2',
@@ -51,11 +57,18 @@ describe('objectToNode', () => {
 
     const expectedEdges: Edge[] = [
       {
-        id: '0-2',
+        id: '0-1',
         source: '0',
+        target: '1',
+        type: 'default',
+        label: 'subs',
+      },
+      {
+        id: '1-2',
+        source: '1',
         target: '2',
         type: 'default',
-        label: 'subs.resubs',
+        label: 'resubs',
       },
     ];
 
@@ -80,13 +93,13 @@ describe('objectToNode', () => {
         id: '0',
         position,
         type: 'jsonNode',
-        data: { content: { property: "a" } }
+        data: { content: { property: "a", property2: '<object>' } }
       },
       {
         id: '1',
         position,
         type: 'jsonNode',
-        data: { content: { property: "b" } }
+        data: { content: { property: "b" , property3: '<object>'} }
       },
       {
         id: '2',
@@ -138,7 +151,7 @@ describe('objectToNode', () => {
         id: '0',
         position,
         type: 'jsonNode',
-        data: { content: { property: "a" } }
+        data: { content: { property: "a", subs: '<array>' } }
       },
       {
         id: '1',
@@ -220,7 +233,7 @@ describe('objectToNode', () => {
         id: '0',
         position,
         type: 'jsonNode',
-        data: { content: { property: "a" } }
+        data: { content: { property: "a", subs: '<array>', subProperty: '<object>', subObjects: '<array>' } }
       },
       {
         id: '1',
@@ -238,7 +251,7 @@ describe('objectToNode', () => {
         id: '3',
         position,
         type: 'jsonNode',
-        data: { content: { property: "d" } }
+        data: { content: { property: "d", subs: '<array>' } }
       },
       {
         id: '4',
@@ -256,13 +269,13 @@ describe('objectToNode', () => {
         id: '6',
         position,
         type: 'jsonNode',
-        data: { content: { property: "g" } }
+        data: { content: { property: "g", subs: '<array>' } }
       },
       {
         id: '7',
         position,
         type: 'jsonNode',
-        data: { content: { property: "h" } }
+        data: { content: { property: "h", items: '<array>', subs: '<array>' } }
       },
       {
         id: '8',
@@ -382,7 +395,7 @@ describe('createNodes', () => {
         id: '0',
         position,
         type: 'jsonNode',
-        data: { content: { property: "a" } }
+        data: { content: { property: "a", subs: '<array>' } }
       },
       {
         id: '1',
@@ -400,7 +413,7 @@ describe('createNodes', () => {
         id: '3',
         position,
         type: 'jsonNode',
-        data: { content: { property: "c" } }
+        data: { content: { property: "c", subs: '<array>' } }
       },
       {
         id: '4',

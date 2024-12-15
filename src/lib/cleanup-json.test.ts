@@ -16,7 +16,7 @@ it('should remove sub object', () => {
     subitem: { property: "b" }
   };
 
-  const expected = { property: "a" };
+  const expected = { property: "a", subitem: '<object>' };
 
   const got = cleanupJson(input);
   expect(got).toEqual(expected);
@@ -32,18 +32,26 @@ it('should remove arrays', () => {
     ]
   };
 
-  const expected = { property: "a" };
+  const expected = { property: "a", subitems: '<array>' };
 
   const got = cleanupJson(input);
   expect(got).toEqual(expected);
 });
 
-it('should return null when empty object', () => {
+it('should return properties when empty properties', () => {
   const input = {
     property: { test: "a" },
     property2: [{ test: "a" }],
   };
 
+  const expected = { property: '<object>', property2: '<array>' };
+
+  const got = cleanupJson(input);
+  expect(got).toEqual(expected);
+});
+
+it('should return null when empty input', () => {
+  const input = {};
   const got = cleanupJson(input);
   expect(got).toBeNull();
 });

@@ -120,6 +120,10 @@
   border: 3px solid #6272A4;
 }
 
+:global(.svelte-flow__node-default) {
+  border-color: #FF79C6!important;
+}
+
 :global(.svelte-flow__handle) {
   background-color: transparent!important;
   border: none;

@@ -6,17 +6,17 @@ export function cleanupJson(input: any): object | null {
   const value = Object.entries(input).reduce((acc: any, cur: [string, any]) => {
     const [key, value] = cur;
 
-    if (!Array.isArray(value) && typeof value === 'object') return acc;
-
-    if (!Array.isArray(value)) {
-      acc[key] = value;
+    if (!Array.isArray(value) && typeof value === 'object') {
+      acc[key] = '<object>';
+      return acc;
     }
 
     if (Array.isArray(value)) {
-      const content = cleanupJson(value);
-      if (content) acc[key] = content;
+      acc[key] = '<array>';
+      return acc;
     }
 
+    acc[key] = value;
     return acc;
   }, {});
 
